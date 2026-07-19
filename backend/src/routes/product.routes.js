@@ -7,7 +7,21 @@ const prisma = new PrismaClient();
 // Get all products
 router.get('/', async (req, res) => {
     try {
-        const products = await prisma.product.findMany();
+        const { category } = req.query;
+        let whereClause = {};
+        
+        if (category) {
+            whereClause = {
+                OR: [
+                    { name: { contains: category, mode: 'insensitive' } },
+                    { description: { contains: category, mode: 'insensitive' } }
+                ]
+            };
+        }
+
+        const products = await prisma.product.findMany({
+            where: whereClause
+        });
         res.json(products);
     } catch (error) {
         res.status(500).json({ error: error.message });
