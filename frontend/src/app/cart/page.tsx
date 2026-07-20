@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Navbar from "../../app-components/Navbar";
+import Link from "next/link";
 
 interface CartItem {
     id: string;
@@ -82,9 +83,9 @@ export default function CartPage() {
                                     <span>${total.toFixed(2)}</span>
                                 </div>
                             </div>
-                            <button className="w-full mt-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg font-bold hover:opacity-90">
+                            <Link href="/checkout" className="block text-center w-full mt-6 py-3 bg-black text-white dark:bg-white dark:text-black rounded-lg font-bold hover:opacity-90">
                                 Checkout
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 )}
