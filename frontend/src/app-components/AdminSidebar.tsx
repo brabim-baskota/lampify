@@ -15,7 +15,7 @@ export default function AdminSidebar() {
     const menuItems = [
         { name: "Dashboard", href: "/admin", icon: "📊" },
         { name: "Products", href: "/admin/products", icon: "💡" },
-        { name: "Orders", href: "/admin/orders", icon: "📦" }, // Future
+        { name: "Orders", href: "/admin/orders", icon: "📦" },
         { name: "Users", href: "/admin/users", icon: "👥" }, // Future
     ];
 
