@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "framer-motion";
+import { getSession, signOut } from "next-auth/react";
 import {
     Search,
     ShoppingBag,
@@ -34,19 +35,17 @@ export default function Navbar() {
     });
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        const userData = localStorage.getItem("user");
-        if (token && userData) {
-            setUser(JSON.parse(userData));
-        }
+        const fetchSession = async () => {
+            const session = await getSession();
+            if (session?.user) {
+                setUser(session.user as any);
+            }
+        };
+        fetchSession();
     }, []);
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setUser(null);
-        setIsUserMenuOpen(false);
-        router.push("/login");
+    const handleLogout = async () => {
+        await signOut({ redirect: true, callbackUrl: "/login" });
     };
 
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
